@@ -1,0 +1,18 @@
+{
+  "name": "NeTur, for EnTur",
+  "short_name": "NeTur",
+  "version": "0.0.1",
+  "manifest_version": 2,
+  "offline_enabled": true,
+  "description": "Do you know your colleagues names?.",
+  "homepage_url": "https://entur.no/",
+  "permissions": ["https://enturas.atlassian.net/*"],
+  "browser_action": {
+    "default_title": "NeTur",
+    "default_popup": "index.html"
+  },
+  "icons": {
+    "48": "/48.png"
+  },
+  "content_security_policy": "script-src 'self'; object-src 'self'"
+}
