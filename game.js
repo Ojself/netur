@@ -23,7 +23,7 @@ class Game {
     init(){
       this.resetGame()
       this.isPlaying = true
-      this.changeEmployee() 
+      this.changeEmployee()  
     }
   
     changeEmployee(){
@@ -32,7 +32,7 @@ class Game {
 
         const randomEmployee = this.employeesLeft[Math.floor(Math.random() * this.employeesLeft.length)]
         this.currentName = randomEmployee && randomEmployee.name ? randomEmployee.name : '';
-        if (!this.currentName) return null;
+        if (!this.currentName)return renderError("No employees to be found")
 
         $('#employeeImage').attr('src', randomEmployee.img);
 
@@ -221,14 +221,22 @@ exitGame () {
     $('#loadingError').hide();
     return result
   } catch (error) {
-    $('#loading').hide();
-    $('#loadingFinished').hide();
-    $('#loadingError').show();
-    $('#loadingError').html(
-      'Feil ved innlasting av spill. Sørg for at du er logget inn på enturas.atlassian.net, og last inn spillet på nytt.'
-    );
+    renderError(error)
   }
 };
+
+const renderError = (error) => {
+  console.error(error)
+  showMenu()
+  $('#loading').hide();
+  $('#loadingFinished').hide();
+  $('#loadingError').show();
+  $('#loadingError').html(
+    'Feil ved innlasting av spill. Sørg for at du er logget inn på enturas.atlassian.net, og last inn spillet på nytt.'
+  );
+}
+
+
  const showMenu = () => {
   $('#menu').show();
   $('#play').hide();
