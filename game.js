@@ -5,7 +5,7 @@ class Game {
         this.employees = [];
         this.employeesLeft = [];
         this.lives = 15;
-        this.score = 0;
+        this.currentScore = 0;
         this.highScore = 0
         this.currentName = "";
         this.usedLetters = [];
@@ -17,14 +17,9 @@ class Game {
       const fetchedEmployees = await fetchEmployees();
       this.employees = fetchedEmployees;
       this.employeesLeft = fetchedEmployees;
-      renderGameState(this.score, this.lives)
+      renderGameState(this.currentScore, this.lives)
     }
-    
-    init(){
-      this.resetGame()
-      this.isPlaying = true
-      this.changeEmployee()  
-    }
+
   
     changeEmployee(){
         this.usedLetters = []
@@ -58,19 +53,21 @@ class Game {
 
     }
     increaseScore(){
-        this.score++;
+        this.currentScore++;
     }
     decreaseLives(){
         this.lives--;
     }
     resetGame(){
-        this.score = 0;
+        this.currentScore = 0;
         this.lives = 15;
         this.employeesLeft = this.employees.slice();
         this.isPlaying = true
         this.highScore = getLocalHighScore();
-        resetImageRender();
         resetGameView();
+        resetImageRender();
+        renderGameState()
+        this.changeEmployee()  
     }
 
 
@@ -98,8 +95,8 @@ class Game {
     this.allowInput = false;
     showWrongName();
     setTimeout(function () {
-      gameOver();
-      this.allowInput = true;
+      game.gameOver();
+      game.allowInput = true;
       $('#endButton').addClass('red');
     }, 4000);
   } else {
@@ -124,13 +121,13 @@ class Game {
       this.increaseScore();
       this.allowInput = false;
       setTimeout(() => {
-        if (this.employeesLeft.length === 0) {
-          this.gameOver(true);
+         if (game.employeesLeft.length === 0) {
+          game.gameOver(true);
         } else {
-          this.roundWin();
+          game.roundWin();
         }
         $('#endButton').addClass('red');
-        this.allowInput = true;
+        game.allowInput = true;
       }, 2500);
     }
   }
@@ -143,12 +140,12 @@ roundWin () {
 };
 
 gameOver (gameWin = false) {
-  if (this.score > this.highScore) {
-    setNewHighScore(this.score, this.highScore);
+  if (this.currentScore > this.highScore) {
+    setNewHighScore(this.currentScore, this.highScore);
   }
   this.isPlaying = false;
-  this.showFinish();
-  this.renderFinish(gameWin, this.score, this.employees.length, this.highScore);
+  showFinish();
+  renderFinish(gameWin, this.currentScore, this.employees.length);
 };
 
 exitGame () {
@@ -200,14 +197,14 @@ exitGame () {
   $('#livesLabel').html('Antall liv: ' + lives);
 };
 
- const renderFinish = (win, score, numOfEmployees, highScore) => {
+ renderFinish = (win, score, numOfEmployees) => {
   if (win) {
     $('#finishTitle').html('Gratulerer, du vant!');
   } else {
     $('#finishTitle').html('Du tapte!');
   }
   $('#score').html(score + ' av ' + numOfEmployees);
-  $('#highScore').html('Din rekord: ' + highScore);
+  $('#highScore').html('Din rekord: ' + getLocalHighScore());
 };
 
  const fetchEmployees = async () => {
@@ -268,7 +265,7 @@ const renderError = (error) => {
 
  const setNewHighScore =  (currentScore, highScore) => {
   if (currentScore > highScore) {
-    localStorage.setItem('neTurNameGameScore', score);
+    localStorage.setItem('neTurNameGameScore', currentScore);
   }
 };
 

@@ -9,14 +9,14 @@ $(document).on('keypress', window, (e) => {
       ((key >= 'a' && key <= 'z') || 'æøå'.includes(key)) && e.keyCode != 13) {
       game.checkLetter(key);
       game.updateGameState();
-      renderGameState(game.score, game.lives)
+      renderGameState(game.currentScore, game.lives)
     }
   }
 });
 
 $('#playButton').click(() => {
   showPlay();
-  game.init();
+  game.resetGame();
 });
 
 $('#endButton').click(() => {
@@ -26,14 +26,6 @@ $('#endButton').click(() => {
 });
 
 $('#retryButton').click(() => {
-  game.setup();
+  game.resetGame();
   showPlay();
-});
-
-$('#quitButton').click((e) => {
-  e.preventDefault();
-  $('#game').hide();
-  $('#home').show();
-  $('#mapmarker').show();
-  game.exitGame();
 });

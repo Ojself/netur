@@ -256,11 +256,6 @@ body {
   border-radius: 4px;
 }
 
-.gameButton.red {
-  background: #df4b4b;
-  box-shadow: -1.2px -0.9px 0 0.8px #a83737 inset;
-}
-
 .gameButton.green {
   background: #46b44c;
   box-shadow: -1.2px -0.9px 0 0.8px #328336 inset;
