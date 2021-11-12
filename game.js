@@ -66,7 +66,7 @@ class Game {
         this.highScore = getLocalHighScore();
         resetGameView();
         resetImageRender();
-        renderGameState()
+        renderGameState(this.currentScore, this.lives)
         this.changeEmployee()  
     }
 
@@ -193,6 +193,7 @@ exitGame () {
 };
 
  const renderGameState = (score, lives) => {
+   console.log(score, lives)
   $('#scoreLabel').html('Poeng: ' + score);
   $('#livesLabel').html('Antall liv: ' + lives);
 };
