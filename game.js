@@ -27,7 +27,7 @@ class Game {
 
         const randomEmployee = this.employeesLeft[Math.floor(Math.random() * this.employeesLeft.length)]
         this.currentName = randomEmployee && randomEmployee.name ? randomEmployee.name : '';
-        if (!this.currentName)return renderError("No employees to be found")
+        if (!this.currentName)return handleError("No employees to be found")
 
         $('#employeeImage').attr('src', randomEmployee.img);
 
@@ -193,7 +193,6 @@ exitGame () {
 };
 
  const renderGameState = (score, lives) => {
-   console.log(score, lives)
   $('#scoreLabel').html('Poeng: ' + score);
   $('#livesLabel').html('Antall liv: ' + lives);
 };
@@ -219,12 +218,12 @@ exitGame () {
     $('#loadingError').hide();
     return result
   } catch (error) {
-    renderError(error)
+    handleError(error)
   }
 };
 
-const renderError = (error) => {
-  console.error(error)
+const handleError = (error) => {
+  console.error("Error: ", error)
   showMenu()
   $('#loading').hide();
   $('#loadingFinished').hide();
