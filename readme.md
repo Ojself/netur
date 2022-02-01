@@ -1,5 +1,9 @@
 # NeTur
 
+## UPDATE 01.02.22
+
+- Extension is removed from chrome web store due to violation of data privacy
+
 Hvor godt kjenner du kollegaene dine?
 
 NeTur er en modifisert utgave av [BrowseIt](https://github.com/knowit/browseit)
